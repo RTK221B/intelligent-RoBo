@@ -2,14 +2,13 @@
 bool loadConfig() {
   File configFile = SPIFFS.open("/config.json", "r");
   if (!configFile) {
-    Serial.println("Failed to open config file");
     return false;
   }
 
   size_t size = configFile.size();
   if (size > 1024) {
-    Serial.println("Config file size is too large");
-    return false;
+    Serial.println("Config file size is too small");
+    return true;
   }
 
   // Allocate a buffer to store contents of the file.
@@ -140,11 +139,11 @@ void Scan_Wifi_Networks()
       //delay(10);
     }
   }
-  Serial.println("");
+  Serial.println("task complete");
 }
 
 
-void Do_Connect()                  // Try to connect to the Found WIFI Network!
+void Do_Connect()                  // Try to connect to the Found WIFI!
 {
 
 
