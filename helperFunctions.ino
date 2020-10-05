@@ -70,11 +70,14 @@ void ota(){
     } else {
       WiFiClient toKill = TelnetServer.available();
       toKill.stop();
+      uint32_t written;
+      while(!Update.isFinished()){
+        written = Update.write(clientWiFi);
+        if(written > 0) clientWiFi.print(written, DEC);
     }
   }
   if (Telnet && Telnet.connected() && Telnet.available()){
-    while(Telnet.available())
-      Serial.write(Telnet.read());
+    
   }
   if(Serial.available()){
     size_t len = Serial.available();
